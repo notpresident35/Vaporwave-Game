@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 6011823610416283678}
   - component: {fileID: 6011823610416283667}
   - component: {fileID: 6011823610416283664}
+  - component: {fileID: 7899250967519000219}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -378,6 +379,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.42
+--- !u!114 &7899250967519000219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6011823610416283677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3b81dabf07a1bf4eb495cfe0679c23f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Elmo: {fileID: 6011823610726440948}
+  ElmoHitBox: {fileID: 6011823610416283664}
+  interval: 0.1
+  invincibleTime: 1
 --- !u!1 &6011823610440805838
 GameObject:
   m_ObjectHideFlags: 0
