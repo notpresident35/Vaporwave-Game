@@ -5,6 +5,7 @@ using UnityEngine;
 public class Laser : MonoBehaviour {
 
     public float Width = 0.33f;
+    public bool Active = false;
 
     LineRenderer line;
     BoxCollider2D col;
@@ -18,6 +19,14 @@ public class Laser : MonoBehaviour {
     }
 
     void Update () {
+
+        col.enabled = Active;
+        if (!Active) {
+            line.SetPosition (0, transform.position);
+            line.SetPosition (1, transform.position);
+            return;
+        }
+
         // Finds the angle from startPos to endPos
         startPos = transform.position;
         offsetAngle = Mathf.Atan2 (endPos.y - startPos.y, endPos.x - startPos.x);
