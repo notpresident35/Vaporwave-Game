@@ -18,7 +18,6 @@ public class Bullet : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D (Collider2D collision) {
-        // TODO: Health and damage
         if (collision.GetComponent <HealthBarScript> ()) {
             collision.GetComponent<HealthBarScript> ().hurtMe (Damage);
         }

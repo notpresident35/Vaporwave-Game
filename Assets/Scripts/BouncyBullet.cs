@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BouncyBullet : MonoBehaviour
 {
+    public float Damage;
     public float Speed;
     public int bounces;//How many times the bullet can bounce
     private int numBounces;//How many times the bullet has bounced
@@ -22,12 +23,14 @@ public class BouncyBullet : MonoBehaviour
 
     private void OnCollisionEnter2D (Collision2D collision)
     {
+        if (collision.transform.GetComponent<HealthBarScript> ()) {
+            collision.transform.GetComponent<HealthBarScript> ().hurtMe (Damage);
+        }
+
         if (numBounces < bounces) {
-            // TODO: Health and damage
             numBounces++;
         }
         else {
-            // TODO: Health and damage
             Destroy(gameObject);
         }
     }

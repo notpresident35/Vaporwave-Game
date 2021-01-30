@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6082837229077233716}
   - component: {fileID: 6082222294784746793}
-  - component: {fileID: 8174943822905521087}
+  - component: {fileID: -6381088917035291123}
   - component: {fileID: 4221198445520702674}
   - component: {fileID: 5417831831757943575}
   m_Layer: 8
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8174943822905521087
+--- !u!114 &-6381088917035291123
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,11 +94,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2017678335224733958}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1cde2d1a61bf404ea722423a293e647, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ed620cb6ad334046aa7c26b22efe9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 25
-  Damage: 0
+  Damage: 30
+  Speed: 7
+  RotationSpeed: 600
+  RotationFrequency: 12
 --- !u!50 &4221198445520702674
 Rigidbody2D:
   serializedVersion: 4
@@ -119,7 +121,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!61 &5417831831757943575
 BoxCollider2D:
   m_ObjectHideFlags: 0
