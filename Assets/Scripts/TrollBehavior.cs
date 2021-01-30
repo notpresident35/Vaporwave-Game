@@ -21,7 +21,6 @@ public class TrollBehavior : MonoBehaviour, GenericKillableEntity
             step = speed / dist * Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, Target.GetComponent<Transform>().position, step);
         }
-        
     }
 
     public void Die () {

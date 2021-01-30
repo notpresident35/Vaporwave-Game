@@ -278,6 +278,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6011823610416283678, guid: 6c570f25c8c216f418763933534e5a7c, type: 3}
+      propertyPath: BulletPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6011823610416283678, guid: 6c570f25c8c216f418763933534e5a7c, type: 3}
+      propertyPath: BulletPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 2017678335224733958, guid: 6ab63e0b3db410e489780b77a8df8915, type: 3}
+    - target: {fileID: 6011823610416283678, guid: 6c570f25c8c216f418763933534e5a7c, type: 3}
+      propertyPath: BulletPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 2017678335224733958, guid: de426e455928e7a4cbd0390e170327d8, type: 3}
+    - target: {fileID: 6011823610416283678, guid: 6c570f25c8c216f418763933534e5a7c, type: 3}
+      propertyPath: BulletPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 5305565326636137173, guid: 66f7e1858275c604da9815b4722d37ad, type: 3}
+    - target: {fileID: 6011823610416283678, guid: 6c570f25c8c216f418763933534e5a7c, type: 3}
+      propertyPath: BulletPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3697505608685346226, guid: 663aed7dd29269a4f8e9e6c602646b5b, type: 3}
     - target: {fileID: 6011823610416283679, guid: 6c570f25c8c216f418763933534e5a7c, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shooter : MonoBehaviour {
 
     public float ShootDelay;
-    public GameObject BulletPrefab;
+    public GameObject[] BulletPrefabs;
     public Transform Barrel;
 
     float iterator;
@@ -22,6 +22,7 @@ public class Shooter : MonoBehaviour {
     }
 
     void Shoot () {
-        Instantiate (BulletPrefab, Barrel.position, Barrel.rotation, null);
+        int i = Random.Range(0, BulletPrefabs.Length);
+        Instantiate (BulletPrefabs[i], Barrel.position, Barrel.rotation, null);
     }
 }
