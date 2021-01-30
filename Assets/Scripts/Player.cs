@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, GenericKillableEntity {
 
+    public static bool isDead = false;
+
     public float Speed;
     public float TurnSmoothing;
     public Transform Gun;
@@ -24,6 +26,8 @@ public class Player : MonoBehaviour, GenericKillableEntity {
     }
 
     private void Update () {
+
+        if (isDead) { rb.velocity = Vector3.zero; return; }
 
         // Movement
         input.x = Input.GetAxisRaw ("Horizontal");
@@ -48,6 +52,7 @@ public class Player : MonoBehaviour, GenericKillableEntity {
 
     public void Die () {
         // TODO: Fancy death cutscene!
+        isDead = true;
         print ("Player died!");
     }
 }

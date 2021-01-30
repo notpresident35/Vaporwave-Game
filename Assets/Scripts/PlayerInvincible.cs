@@ -8,27 +8,19 @@ public class PlayerInvincible : MonoBehaviour
     public CircleCollider2D ElmoHitBox;
     public float interval;
     public float invincibleTime;
+    public HealthBarScript health;
 
     private float timer;
     private bool visible;
     private Coroutine blink;
 
-    private void Update()
-    {
-        timer -= Time.deltaTime;
-        if (timer <= 0) {
-            StopCoroutine("Blink");
-            ElmoHitBox.enabled = true;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision) {
+    public void TakeDamage () {
         if (blink != null) {
             StopCoroutine (blink);
         }
         blink = StartCoroutine ("Blink");
         ElmoHitBox.enabled = false;
-        timer = invincibleTime;
+        timer = interval;
     }
 
     IEnumerator Blink()
