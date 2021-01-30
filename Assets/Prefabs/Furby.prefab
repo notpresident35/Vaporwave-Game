@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d37769bf62e0764d872513ab90be364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 0.33
+  Width: 0.2
   Active: 0
 --- !u!1 &8906190805503057013
 GameObject:
@@ -412,6 +412,7 @@ GameObject:
   - component: {fileID: 8906190806130320546}
   - component: {fileID: 8906190806130320549}
   - component: {fileID: 8906190806130320547}
+  - component: {fileID: 297756860128962304}
   m_Layer: 7
   m_Name: Furby
   m_TagString: Untagged
@@ -498,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c5a256658b43aa4aa1ba9d9c7ea1c50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaserSpinSpeed: 0.04
+  LaserSpinSpeed: 0.02
   LeftLaser: {fileID: 8906190806161766772}
   RightLaser: {fileID: 8906190805307972499}
   AttackDelay: 5
@@ -567,6 +568,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &297756860128962304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8906190806130320569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e53025a87d685448d8566c9decfe10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useHearts: 0
+  hearts: []
+  health: 120
 --- !u!1 &8906190806161766729
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,7 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d37769bf62e0764d872513ab90be364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 0.33
+  Width: 0.2
   Active: 0
 --- !u!1 &8906190806236578597
 GameObject:

@@ -6,6 +6,7 @@ public class PlayerInvincible : MonoBehaviour
 {
     public SpriteRenderer Elmo;
     public CircleCollider2D ElmoHitBox;
+    public bool invincible;
     public float interval;
     public float invincibleTime;
     public HealthBarScript health;
@@ -19,6 +20,7 @@ public class PlayerInvincible : MonoBehaviour
             StopCoroutine (blink);
         }
         blink = StartCoroutine ("Blink");
+        invincible = true;
         ElmoHitBox.enabled = false;
         timer = interval;
     }
@@ -37,6 +39,7 @@ public class PlayerInvincible : MonoBehaviour
         }
 
         ElmoHitBox.enabled = true;
+        invincible = false;
         Elmo.color = new Color (Elmo.color.r, Elmo.color.g, Elmo.color.b, 1);
     }
 }

@@ -18,6 +18,12 @@ public class Laser : MonoBehaviour {
         col = GetComponentInChildren<BoxCollider2D> ();
     }
 
+    /*private void OnTriggerEnter2D (Collider2D collision) {
+        if (collision.GetComponent<HealthBarScript> ()) {
+            collision.GetComponent<HealthBarScript> ().hurtMe (1);
+        }
+    }
+    */
     void Update () {
 
         col.enabled = Active;

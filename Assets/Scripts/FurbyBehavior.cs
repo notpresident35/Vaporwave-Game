@@ -35,6 +35,12 @@ public class FurbyBehavior : MonoBehaviour, GenericKillableEntity {
         }
     }
 
+    private void OnTriggerEnter2D (Collider2D collision) {
+        if (collision.GetComponent<HealthBarScript> ()) {
+            collision.GetComponent<HealthBarScript> ().hurtMe (1);
+        }
+    }
+
     IEnumerator Attack () {
 
         LeftLaser.Active = true;
