@@ -8,7 +8,10 @@ public class PlayerInvincible : MonoBehaviour
     public CircleCollider2D ElmoHitBox;
     public float interval;
     public float invincibleTime;
+
     private float timer;
+    private bool visible;
+    private Coroutine blink;
 
     private void Update()
     {
@@ -19,27 +22,29 @@ public class PlayerInvincible : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        StartCoroutine("Blink");
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (blink != null) {
+            StopCoroutine (blink);
+        }
+        blink = StartCoroutine ("Blink");
+        ElmoHitBox.enabled = false;
         timer = invincibleTime;
     }
 
     IEnumerator Blink()
     {
-        while (true)
-        {
-            switch (Elmo.color.a.ToString())
-            {
-                case "0":
-                    Elmo.color = new Color(Elmo.color.r, Elmo.color.g, Elmo.color.b, 1);
-                    yield return new WaitForSeconds(interval);
-                    break;
-                case "1":
-                    Elmo.color = new Color(Elmo.color.r, Elmo.color.g, Elmo.color.b, 0);
-                    yield return new WaitForSeconds(interval);
-                    break;
+        for (float i = 0; i < invincibleTime; i += Time.deltaTime) {
+            if (timer > interval) {
+                timer = 0;
+                visible = !visible;
+                Elmo.color = new Color (Elmo.color.r, Elmo.color.g, Elmo.color.b, visible ? 1 : 0);
             }
+
+            timer += Time.deltaTime;
+            yield return null;
         }
+
+        ElmoHitBox.enabled = true;
+        Elmo.color = new Color (Elmo.color.r, Elmo.color.g, Elmo.color.b, 1);
     }
 }
