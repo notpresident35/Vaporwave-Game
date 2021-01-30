@@ -38,6 +38,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackgroundToys
+    uniqueID: 294767531
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ForegroundToys
+    uniqueID: 2934332865
     locked: 0
