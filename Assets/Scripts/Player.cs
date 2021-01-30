@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, GenericKillableEntity {
 
     public float Speed;
     public float TurnSmoothing;
@@ -31,5 +31,10 @@ public class Player : MonoBehaviour {
         if (Input.GetKey (KeyCode.Space)) {
             shooter.TryShoot ();
         }
+    }
+
+    public void Die () {
+        // TODO: Fancy death cutscene!
+        print ("Player died!");
     }
 }

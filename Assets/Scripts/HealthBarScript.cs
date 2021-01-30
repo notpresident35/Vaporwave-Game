@@ -2,44 +2,63 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthBarScript : MonoBehaviour
-{
-    int heartNum;
+public class HealthBarScript : MonoBehaviour {
+
+    public bool useHearts;
+
+    float health;
     int totalHearts;
-    GameObject Player;
+    GameObject [] hearts;
+    GenericKillableEntity entity;
 
     // Start is called before the first frame update
     void Start()
     {
-        totalHearts =  gameObject.transform.childCount;
-        heartNum = totalHearts;
+        if (transform.parent) {
+            entity = transform.parent.GetComponent<GenericKillableEntity> ();
+            transform.parent = null;
+        } else {
+            entity = GetComponent<GenericKillableEntity> ();
+        }
+
+        if (useHearts) {
+            totalHearts = transform.childCount;
+            hearts = new GameObject [totalHearts];
+            for (int i = 0; i < totalHearts; i++) {
+                hearts [i] = transform.GetChild (i).gameObject;
+            }
+            health = totalHearts;
+        } else {
+            // TODO: Slider health bar (or no health bar)
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A) && heartNum > 0) {//Hearts disappear here. Replace with a link to player later?
+        if (Input.GetKeyDown(KeyCode.A) && health > 0) {//Hearts disappear here. Replace with a link to player later?
             hurtMe();
         }
-        else if (Input.GetKeyDown(KeyCode.S) && heartNum < totalHearts) {//Hearts reappear here. Replace with a link to player later?
+        else if (Input.GetKeyDown(KeyCode.S) && health < totalHearts) {//Hearts reappear here. Replace with a link to player later?
             healMe();
         }
     }
 
     public void hurtMe() {
-        heartNum--;
-        gameObject.transform.GetChild(heartNum).gameObject.SetActive(false);
-        if (heartNum == 0) {
-            die();
+        if (useHearts) {
+            health--;
+            hearts [Mathf.RoundToInt (health)].SetActive (false);
+
+            if (health <= 0) {
+                entity.Die ();
+            }
         }
     }
 
     public void healMe() {
-        gameObject.transform.GetChild(heartNum).gameObject.SetActive(true);
-        heartNum++;
-    }
-
-    public void die() {
-        print("EH DEAD");
+        if (useHearts) {
+            hearts [Mathf.RoundToInt (health)].SetActive (true);
+            health++;
+        }
     }
 }

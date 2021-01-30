@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FurbyBehavior : MonoBehaviour {
+public class FurbyBehavior : MonoBehaviour, GenericKillableEntity {
 
     public float LaserSpinSpeed = 25;
     public Laser LeftLaser;
@@ -23,7 +23,12 @@ public class FurbyBehavior : MonoBehaviour {
     {
         rb.velocity = Vector3.right;
 
+        // TODO: Use these in the furby attacks rather than as random test values
         LeftLaser.SetTargetPosition (new Vector3 (-2, 1, 0));
         RightLaser.SetTargetPosition (new Vector3 (5, 2, 0));
+    }
+
+    public void Die () {
+        Destroy (gameObject);
     }
 }

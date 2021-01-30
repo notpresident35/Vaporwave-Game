@@ -16,15 +16,16 @@ public class Laser : MonoBehaviour {
         GetComponentInChildren<BoxCollider2D> ().size = new Vector2 (Size.x, Size.y);
     }
 
-    void Update() {
+    void Update () {
+        // Finds the angle from startPos to endPos
         startPos = transform.position;
         offsetAngle = Mathf.Atan2 (endPos.y - startPos.y, endPos.x - startPos.x);
 
-        // Line renderer
+        // Set lineRenderer positions
         line.SetPosition (0, startPos);
         line.SetPosition (1, endPos);
 
-        // Box collider
+        // Rotate collider
         transform.rotation = Quaternion.Euler (0, 0, offsetAngle * Mathf.Rad2Deg);
     }
 
