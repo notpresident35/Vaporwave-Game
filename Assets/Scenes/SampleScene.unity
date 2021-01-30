@@ -2544,6 +2544,10 @@ PrefabInstance:
       propertyPath: Width
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 8906190806130320548, guid: 533dc70842be4db47abb5fd83e0a5725, type: 3}
+      propertyPath: AttackDelay
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8906190806130320551, guid: 533dc70842be4db47abb5fd83e0a5725, type: 3}
       propertyPath: m_RootOrder
       value: 4

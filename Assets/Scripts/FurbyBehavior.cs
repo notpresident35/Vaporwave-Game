@@ -40,9 +40,8 @@ public class FurbyBehavior : MonoBehaviour, GenericKillableEntity {
         LeftLaser.Active = true;
         RightLaser.Active = true;
 
-        for (float i = 0; i < AttackLength / 2; i += Time.deltaTime) {
-            float angle = Mathf.PerlinNoise (0, Time.time * LaserSpinSpeed) * Mathf.Rad2Deg;
-            Vector3 targetPos = new Vector3 (Mathf.Cos (angle), Mathf.Sin (angle)) * Mathf.Clamp01 (i * i);
+        for (float i = 0; i < 1; i += Time.deltaTime * AttackLength / 3) {
+            Vector3 targetPos = GetNoisyPosition () * Mathf.Clamp01 (i * i);
 
             LeftLaser.SetTargetPosition (targetPos * LaserRange + transform.position);
             RightLaser.SetTargetPosition (targetPos * LaserRange + transform.position);
@@ -50,9 +49,8 @@ public class FurbyBehavior : MonoBehaviour, GenericKillableEntity {
             yield return null;
         }
 
-        for (float i = 0; i < AttackLength / 2; i += Time.deltaTime) {
-            float angle = Mathf.PerlinNoise (157, Time.time * LaserSpinSpeed) * Mathf.Rad2Deg;
-            Vector3 targetPos = new Vector3 (Mathf.Cos (angle), Mathf.Sin (angle));
+        for (float i = 0; i < 1; i += Time.deltaTime * AttackLength / 2) {
+            Vector3 targetPos = GetNoisyPosition ();
 
             LeftLaser.SetTargetPosition (targetPos * LaserRange + transform.position);
             RightLaser.SetTargetPosition (targetPos * LaserRange + transform.position);
@@ -60,9 +58,8 @@ public class FurbyBehavior : MonoBehaviour, GenericKillableEntity {
             yield return null;
         }
 
-        for (float i = 0; i < AttackLength / 2; i += Time.deltaTime) {
-            float angle = Mathf.PerlinNoise (0, Time.time * LaserSpinSpeed) * Mathf.Rad2Deg;
-            Vector3 targetPos = new Vector3 (Mathf.Cos (angle), Mathf.Sin (angle)) * (1 - Mathf.Clamp01 (i * i));
+        for (float i = 0; i < 1; i += Time.deltaTime * AttackLength / 6) {
+            Vector3 targetPos = GetNoisyPosition () * (1 - Mathf.Clamp01 (i * i));
 
             LeftLaser.SetTargetPosition (targetPos * LaserRange + transform.position);
             RightLaser.SetTargetPosition (targetPos * LaserRange + transform.position);
@@ -75,6 +72,11 @@ public class FurbyBehavior : MonoBehaviour, GenericKillableEntity {
         LeftLaser.Active = false;
         RightLaser.Active = false;
         iterator = 0;
+    }
+
+    Vector3 GetNoisyPosition () {
+        float angle = Mathf.PerlinNoise (157, Time.time * LaserSpinSpeed) * Mathf.Rad2Deg;
+        return new Vector3 (Mathf.Cos (angle), Mathf.Sin (angle));
     }
 
     public void Die () {
