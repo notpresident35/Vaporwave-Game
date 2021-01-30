@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour {
 
     public float Speed;
+    public float Damage;
 
     Rigidbody2D rb;
 
@@ -18,6 +19,9 @@ public class Bullet : MonoBehaviour {
 
     private void OnTriggerEnter2D (Collider2D collision) {
         // TODO: Health and damage
+        if (collision.GetComponent <HealthBarScript> ()) {
+            collision.GetComponent<HealthBarScript> ().hurtMe (Damage);
+        }
         Destroy (gameObject);
     }
 }

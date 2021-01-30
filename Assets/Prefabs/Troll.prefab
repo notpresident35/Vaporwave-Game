@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3404796131722683573}
   - component: {fileID: 3404796131722683572}
   - component: {fileID: 3404796131722683575}
+  - component: {fileID: 3139955031846063685}
   m_Layer: 7
   m_Name: Troll
   m_TagString: Untagged
@@ -48,6 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ff711088f14a0b4c8747fe712eba4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damagePauseTime: 2
   speed: 10
 --- !u!61 &3404796131722683574
 BoxCollider2D:
@@ -138,6 +140,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.67}
   serializedVersion: 2
   m_Radius: 4.03
+--- !u!114 &3139955031846063685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3404796131722683568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e53025a87d685448d8566c9decfe10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useHearts: 0
+  hearts: []
 --- !u!1 &7467126057834752118
 GameObject:
   m_ObjectHideFlags: 0

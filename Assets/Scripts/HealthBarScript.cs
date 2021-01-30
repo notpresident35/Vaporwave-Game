@@ -5,10 +5,10 @@ using UnityEngine;
 public class HealthBarScript : MonoBehaviour {
 
     public bool useHearts;
+    public GameObject [] hearts;
 
     float health;
     int totalHearts;
-    GameObject [] hearts;
     GenericKillableEntity entity;
 
     // Start is called before the first frame update
@@ -22,43 +22,40 @@ public class HealthBarScript : MonoBehaviour {
         }
 
         if (useHearts) {
-            totalHearts = transform.childCount;
-            hearts = new GameObject [totalHearts];
-            for (int i = 0; i < totalHearts; i++) {
-                hearts [i] = transform.GetChild (i).gameObject;
-            }
+            totalHearts = hearts.Length;
             health = totalHearts;
         } else {
             // TODO: Slider health bar (or no health bar)
+            health = 100;
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A) && health > 0) {//Hearts disappear here. Replace with a link to player later?
-            hurtMe();
-        }
-        else if (Input.GetKeyDown(KeyCode.S) && health < totalHearts) {//Hearts reappear here. Replace with a link to player later?
-            healMe();
-        }
-    }
+    public void hurtMe(float damage) {
 
-    public void hurtMe() {
+        if (health <= 0) { return; }
+
+        if (GetComponent<PlayerInvincible> ()) {
+            GetComponent<PlayerInvincible> ().TakeDamage ();
+        }
+
         if (useHearts) {
             health--;
             hearts [Mathf.RoundToInt (health)].SetActive (false);
+        } else {
+            health -= damage;
+        }
 
-            if (health <= 0) {
-                entity.Die ();
-            }
+        if (health <= 0) {
+            entity.Die ();
         }
     }
 
-    public void healMe() {
+    public void healMe(float healing) {
         if (useHearts) {
             hearts [Mathf.RoundToInt (health)].SetActive (true);
             health++;
+        } else {
+            health += healing;
         }
     }
 }
