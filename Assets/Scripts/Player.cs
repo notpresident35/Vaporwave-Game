@@ -6,14 +6,21 @@ public class Player : MonoBehaviour, GenericKillableEntity {
 
     public float Speed;
     public float TurnSmoothing;
+    public Transform Gun;
+    public Transform Elmo;
 
     Vector2 input;
+    Vector3 mousePos;
     Rigidbody2D rb;
     Shooter shooter;
+    Camera cam;
+    Vector3 startScale;
 
     private void Awake () {
         rb = GetComponent<Rigidbody2D> ();
         shooter = GetComponent<Shooter> ();
+        startScale = Elmo.localScale;
+        cam = Camera.main;
     }
 
     private void Update () {
@@ -24,11 +31,17 @@ public class Player : MonoBehaviour, GenericKillableEntity {
 
         rb.velocity = input.normalized * Speed;
         if (input.magnitude > Mathf.Epsilon) {
-            transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.Euler (0, 0, Mathf.Atan2 (input.y, input.x) * Mathf.Rad2Deg), TurnSmoothing);
+            Elmo.localScale = new Vector3 ((input.x < 0 ? 1 : -1) * startScale.x, startScale.y, startScale.z);
         }
 
+        // Aiming
+        mousePos = Input.mousePosition;
+        mousePos.z = -10;
+        mousePos = cam.ScreenToWorldPoint (mousePos);
+        Gun.rotation = Quaternion.LookRotation (Vector3.forward, mousePos - transform.position);
+
         // Shooting
-        if (Input.GetKey (KeyCode.Space)) {
+        if (Input.GetKey (KeyCode.Mouse0)) {
             shooter.TryShoot ();
         }
     }

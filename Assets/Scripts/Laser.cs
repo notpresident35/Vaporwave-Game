@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour {
 
-    public Vector2 Size = new Vector2 (25, 0.33f);
+    public float Width = 0.33f;
 
     LineRenderer line;
+    BoxCollider2D col;
     Vector3 startPos;
     Vector3 endPos;
     float offsetAngle;
 
     private void Awake () {
         line = GetComponent<LineRenderer> ();
-        GetComponentInChildren<BoxCollider2D> ().size = new Vector2 (Size.x, Size.y);
+        col = GetComponentInChildren<BoxCollider2D> ();
     }
 
     void Update () {
@@ -25,11 +26,13 @@ public class Laser : MonoBehaviour {
         line.SetPosition (0, startPos);
         line.SetPosition (1, endPos);
 
-        // Rotate collider
+        // Rotate and scale the collider
         transform.rotation = Quaternion.Euler (0, 0, offsetAngle * Mathf.Rad2Deg);
+        col.size = new Vector2 ((startPos - endPos).magnitude, Width);
+        col.transform.localPosition = new Vector3 ((startPos - endPos).magnitude / 2, 0, 0);
     }
 
     public void SetTargetPosition (Vector3 position) {
-        endPos = position.normalized * Size.x;
+        endPos = position;
     }
 }
