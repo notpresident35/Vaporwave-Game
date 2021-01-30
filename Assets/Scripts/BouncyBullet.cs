@@ -20,7 +20,7 @@ public class BouncyBullet : MonoBehaviour
         rb.velocity = transform.right * Speed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D (Collision2D collision)
     {
         if (numBounces < bounces) {
             // TODO: Health and damage

@@ -129,7 +129,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShootDelay: 0.1
-  BulletPrefab: {fileID: 2017678335224733958, guid: 6ab63e0b3db410e489780b77a8df8915, type: 3}
+  BulletPrefabs:
+  - {fileID: 3697505608685346226, guid: 663aed7dd29269a4f8e9e6c602646b5b, type: 3}
+  - {fileID: 2017678335224733958, guid: 6ab63e0b3db410e489780b77a8df8915, type: 3}
+  - {fileID: 5305565326636137173, guid: 66f7e1858275c604da9815b4722d37ad, type: 3}
+  - {fileID: 2017678335224733958, guid: de426e455928e7a4cbd0390e170327d8, type: 3}
   Barrel: {fileID: 6011823610107807280}
 --- !u!50 &6011823610416283667
 Rigidbody2D:
@@ -182,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Elmo: {fileID: 6011823610726440948}
   ElmoHitBox: {fileID: 6011823610416283664}
+  invincible: 0
   interval: 0.1
   invincibleTime: 1.5
   health: {fileID: 6911195981874369303}
@@ -202,6 +207,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  health: 0
 --- !u!1 &6011823610440805838
 GameObject:
   m_ObjectHideFlags: 0
