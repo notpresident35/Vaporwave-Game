@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useHearts: 0
   hearts: []
+  health: 80
 --- !u!1 &7467126057834752118
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,10 +6,11 @@ public class HealthBarScript : MonoBehaviour {
 
     public bool useHearts;
     public GameObject [] hearts;
+    public float health;
 
-    float health;
     int totalHearts;
     GenericKillableEntity entity;
+    PlayerInvincible inv;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +27,10 @@ public class HealthBarScript : MonoBehaviour {
             health = totalHearts;
         } else {
             // TODO: Slider health bar (or no health bar)
-            health = 100;
+        }
+
+        if (GetComponent<PlayerInvincible> ()) {
+            inv = GetComponent<PlayerInvincible> ();
         }
     }
 
@@ -34,8 +38,8 @@ public class HealthBarScript : MonoBehaviour {
 
         if (health <= 0) { return; }
 
-        if (GetComponent<PlayerInvincible> ()) {
-            GetComponent<PlayerInvincible> ().TakeDamage ();
+        if (inv && !inv.invincible) {
+            inv.TakeDamage ();
         }
 
         if (useHearts) {
