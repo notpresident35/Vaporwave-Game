@@ -15,4 +15,9 @@ public class Bullet : MonoBehaviour {
     private void Start () {
         rb.velocity = transform.right * Speed;
     }
+
+    private void OnTriggerEnter2D (Collider2D collision) {
+        // TODO: Health and damage
+        Destroy (gameObject);
+    }
 }

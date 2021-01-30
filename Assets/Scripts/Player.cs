@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public float Speed;
+    public float TurnSmoothing;
 
     Vector2 input;
     Rigidbody2D rb;
@@ -23,7 +24,7 @@ public class Player : MonoBehaviour {
 
         rb.velocity = input.normalized * Speed;
         if (input.magnitude > Mathf.Epsilon) {
-            transform.rotation = Quaternion.Euler (0, 0, Mathf.Atan2 (input.y, input.x) * Mathf.Rad2Deg);
+            transform.rotation = Quaternion.Lerp (transform.rotation, Quaternion.Euler (0, 0, Mathf.Atan2 (input.y, input.x) * Mathf.Rad2Deg), TurnSmoothing);
         }
 
         // Shooting
