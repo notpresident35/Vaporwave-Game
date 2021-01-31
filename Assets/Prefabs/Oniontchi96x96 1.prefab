@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 6831646353938020537}
   - component: {fileID: 6831646353938020540}
   m_Layer: 7
-  m_Name: Oniontchi96x96
+  m_Name: Oniontchi96x96 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0aeeb22601de2845acbda04740054d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moreTomo: {fileID: 6831646353938020543, guid: d011d5b4f846729408c68288f3a14ac5, type: 3}
+  moreTomo: {fileID: 6831646353938020543, guid: 698add08f75157e49833e1c970b1f694, type: 3}
   TomoEggs: {fileID: 6831646353938020537}
   numTomosSpawned: 3
   timeTilDeath: 5
