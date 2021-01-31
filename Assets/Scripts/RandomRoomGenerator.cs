@@ -5,6 +5,8 @@ using UnityEngine;
 public class RandomRoomGenerator : MonoBehaviour {
 
     public static bool MovingRooms;
+
+    public int RoomsClearedToWin = 15;
     public int RoomsCleared = 0;
     public float gridToWorldSpaceSize;
     public float doorOffset;
@@ -31,7 +33,7 @@ public class RandomRoomGenerator : MonoBehaviour {
     public CameraController camController;
     public DungeonRoomPrefab [] DungeonRoomPrefabs;
     public GameObject EmptyRoomPrefab;
-    public GameObject WalkmanPrefab;
+    public GameObject Walkman;
     public GameObject DoorPrefab;
     public GameObject BoundaryPrefab;
     public GameObject BackgroundPrefab;
@@ -55,6 +57,9 @@ public class RandomRoomGenerator : MonoBehaviour {
         doorController.currentRoomPosition = new Vector3 ((currentGridX + gridXDelta) * gridToWorldSpaceSize, (currentGridY + gridYDelta) * gridToWorldSpaceSize);
 
         if (isNewRoom) {
+            if (RoomsCleared > RoomsClearedToWin) {
+                GenerateFinalRoom (currentGridX + gridXDelta, currentGridY + gridYDelta, gridXDelta, gridYDelta);
+            }
             GenerateNewRoom (currentGridX + gridXDelta, currentGridY + gridYDelta, gridXDelta, gridYDelta);
             RoomsCleared++;
         }
@@ -97,6 +102,23 @@ public class RandomRoomGenerator : MonoBehaviour {
         // Logic setup
         DoorController.EnemiesRemainingInRoom = DungeonRoomPrefabs [newRoomChoice].enemyCount;
         DoorController.RoomIsClear = DungeonRoomPrefabs [newRoomChoice].enemyCount <= 0;
+    }
+
+    public void GenerateFinalRoom (int gridXPosition, int gridYPosition, int gridXDelta, int gridYDelta) {
+
+        // Dungeon (IE enemies, objects, traps)
+        DungeonRoom newRoom = new DungeonRoom ();
+        newRoom.gridX = gridXPosition;
+        newRoom.gridY = gridYPosition;
+        Walkman.transform.position = doorController.currentRoomPosition;
+        newRoom.instance = Walkman;
+        rooms.Add (new DungeonRoom ());
+
+        // Boundary
+        Instantiate (BoundaryPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
+
+        // Background
+        Instantiate (BackgroundPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
     }
 
     public void GenerateEmptyRoom (int gridXPosition, int gridYPosition, int gridXDelta, int gridYDelta) {
