@@ -52,4 +52,8 @@ public class DoorController : MonoBehaviour {
             RoomIsClear = true;
         }
     }
+
+    public static void EnemySpawned () {
+        EnemiesRemainingInRoom++;
+    }
 }
