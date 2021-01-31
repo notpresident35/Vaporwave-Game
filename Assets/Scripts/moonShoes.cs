@@ -6,6 +6,9 @@ public class moonShoes : MonoBehaviour
 {
     Player playerScript;
     float playerSpd;
+    bool hasBeenSteppedIn;
+    SpriteRenderer sprite;
+    Collider2D col;
     
     // Start is called before the first frame update
     void Start()
@@ -16,17 +19,13 @@ public class moonShoes : MonoBehaviour
             playerScript = player.GetComponent<Player>();
             playerSpd = playerScript.Speed;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        sprite = GetComponent<SpriteRenderer> ();
+        col = GetComponent<Collider2D> ();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && !hasBeenSteppedIn)
         {
             StartCoroutine(waitUp());
         }
@@ -34,9 +33,14 @@ public class moonShoes : MonoBehaviour
 
     IEnumerator waitUp()
     {
-        playerScript.Speed = 1;
+        hasBeenSteppedIn = true;
+        playerScript.Speed = playerSpd * 3;
+        playerScript.spedUp = true;
+        sprite.enabled = false;
+        col.enabled = false;
         yield return new WaitForSeconds(5);
         playerScript.Speed = playerSpd;
-        
+        playerScript.spedUp = false;
+        Destroy (gameObject);
     }
 }

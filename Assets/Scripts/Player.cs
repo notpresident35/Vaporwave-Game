@@ -10,6 +10,8 @@ public class Player : MonoBehaviour, GenericKillableEntity {
     public float TurnSmoothing;
     public Transform Gun;
     public Transform Elmo;
+    public bool trapped;
+    public bool spedUp;
 
     Vector2 input;
     Vector3 mousePos;
@@ -33,7 +35,12 @@ public class Player : MonoBehaviour, GenericKillableEntity {
         input.x = Input.GetAxisRaw ("Horizontal");
         input.y = Input.GetAxisRaw ("Vertical");
 
-        rb.velocity = input.normalized * Speed;
+        if (spedUp && input.magnitude < Mathf.Epsilon) {
+            
+        } else {
+            rb.velocity = input.normalized * Speed;
+        }
+
         if (input.magnitude > Mathf.Epsilon) {
             Elmo.localScale = new Vector3 ((input.x < 0 ? 1 : -1) * startScale.x, startScale.y, startScale.z);
         }
