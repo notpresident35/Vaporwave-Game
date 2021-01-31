@@ -45,7 +45,6 @@ public class RandomRoomGenerator : MonoBehaviour {
     public void MoveToRoom (int gridXDelta, int gridYDelta) {
         MovingRooms = true;
         bool isNewRoom = true;
-        print ("moving rooms");
         foreach (DungeonRoom room in rooms) {
             if (room.gridX == currentGridX + gridXDelta && room.gridY == currentGridY + gridYDelta) {
                 // There's a room here; don't spawn a new one
@@ -78,8 +77,6 @@ public class RandomRoomGenerator : MonoBehaviour {
 
         // Dungeon (IE enemies, objects, traps)
         DungeonRoom newRoom = new DungeonRoom ();
-        print (gridXPosition);
-        print (gridYPosition);
         newRoom.gridX = gridXPosition;
         newRoom.gridY = gridYPosition;
         newRoom.instance = Instantiate (DungeonRoomPrefabs [newRoomChoice].prefab, doorController.currentRoomPosition, Quaternion.identity, transform);

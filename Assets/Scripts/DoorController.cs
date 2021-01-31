@@ -27,9 +27,6 @@ public class DoorController : MonoBehaviour {
             doors [i].GetComponent<Collider2D> ().enabled = !((player.position - doors [i].position).magnitude < detectionRange);
         }
 
-        print (player.position.x - currentRoomPosition.x);
-        print (player.position.y - currentRoomPosition.y);
-
         if (player.position.x - currentRoomPosition.x > enterDoorDistance) {
             // Entered right door
             for (int i = 0; i < doors.Length; i++) {
