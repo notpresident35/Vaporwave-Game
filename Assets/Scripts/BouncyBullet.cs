@@ -29,6 +29,7 @@ public class BouncyBullet : MonoBehaviour
 
         if (numBounces < bounces) {
             numBounces++;
+            GetComponent<AudioSource> ().Play ();
         }
         else {
             Destroy(gameObject);

@@ -29,6 +29,7 @@ public class Player : MonoBehaviour, GenericKillableEntity {
         shooter = GetComponent<Shooter> ();
         startScale = Elmo.localScale;
         cam = Camera.main;
+        Cursor.visible = false;
     }
 
     private void Update () {
@@ -61,7 +62,6 @@ public class Player : MonoBehaviour, GenericKillableEntity {
 
         // Shooting
         if (Input.GetKey (KeyCode.Mouse0)) {
-            SoundScript.ShootSound();
             shooter.TryShoot ();
         }
     }
