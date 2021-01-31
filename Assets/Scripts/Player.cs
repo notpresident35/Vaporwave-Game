@@ -32,17 +32,21 @@ public class Player : MonoBehaviour, GenericKillableEntity {
         if (isDead) { rb.velocity = Vector3.zero; return; }
 
         // Movement
-        input.x = Input.GetAxisRaw ("Horizontal");
-        input.y = Input.GetAxisRaw ("Vertical");
+        if (!trapped) {
+            input.x = Input.GetAxisRaw("Horizontal");
+            input.y = Input.GetAxisRaw("Vertical");
+            if (spedUp && input.magnitude < Mathf.Epsilon)
+            {
 
-        if (spedUp && input.magnitude < Mathf.Epsilon) {
-            
-        } else {
-            rb.velocity = input.normalized * Speed;
-        }
-
-        if (input.magnitude > Mathf.Epsilon) {
-            Elmo.localScale = new Vector3 ((input.x < 0 ? 1 : -1) * startScale.x, startScale.y, startScale.z);
+            }
+            else
+            {
+                rb.velocity = input.normalized * Speed;
+            }
+            if (input.magnitude > Mathf.Epsilon)
+            {
+                Elmo.localScale = new Vector3((input.x < 0 ? 1 : -1) * startScale.x, startScale.y, startScale.z);
+            }
         }
 
         // Aiming
