@@ -42,6 +42,7 @@ public class TrollBehavior : MonoBehaviour, GenericKillableEntity
     }
 
     public void Die () {
+        DoorController.EnemyDied ();
         Destroy (gameObject);
     }
 }
