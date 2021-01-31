@@ -61,6 +61,7 @@ public class Player : MonoBehaviour, GenericKillableEntity {
 
         // Shooting
         if (Input.GetKey (KeyCode.Mouse0)) {
+            SoundScript.ShootSound();
             shooter.TryShoot ();
         }
     }
