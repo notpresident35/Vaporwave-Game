@@ -28,6 +28,7 @@ public class WinGame : MonoBehaviour {
         }
 
         videoPlayer.Play ();
+        videoPlayer.GetComponent<AudioSource> ().Play ();
         cam.position = new Vector3 (0, 0, -10);
 
         for (float i = 0; i < 1; i += Time.deltaTime / 1.5f) {
