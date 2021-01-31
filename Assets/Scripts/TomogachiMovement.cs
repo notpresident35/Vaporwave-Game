@@ -17,10 +17,17 @@ public class TomogachiMovement : MonoBehaviour
         timer = waitTimer;
     }
 
+    private void OnTriggerEnter2D (Collider2D collision) {
+        if (collision.GetComponent<HealthBarScript> ()) {
+            collision.GetComponent<HealthBarScript> ().hurtMe (1);
+        }
+    }
+
+
     // Update is called once per frame
-    void Update()
+    void Update ()
     {
-        if (RandomRoomGenerator.MovingRooms) { return; }
+        if (RandomRoomGenerator.MovingRooms || Player.isDead) { return; }
 
         timer -= Time.deltaTime;
         if (timer <= 0) {

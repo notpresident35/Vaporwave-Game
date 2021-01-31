@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 6831646353938020537}
   - component: {fileID: 6831646353938020540}
   - component: {fileID: -4042153750047173745}
+  - component: {fileID: 4161735027732570539}
   m_Layer: 7
   m_Name: Oniontchi96x96 1
   m_TagString: Untagged
@@ -287,6 +288,22 @@ MonoBehaviour:
   hearts: []
   health: 25
   killableEntity: {fileID: 6831646353938020543}
+--- !u!58 &4161735027732570539
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6831646353938020543}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.84
 --- !u!1 &6831646354144748912
 GameObject:
   m_ObjectHideFlags: 0

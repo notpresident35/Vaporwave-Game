@@ -26,7 +26,7 @@ public class FurbyBehavior : MonoBehaviour, GenericKillableEntity {
     // Update is called once per frame
     void Update()
     {
-        if (RandomRoomGenerator.MovingRooms) { return; }
+        if (RandomRoomGenerator.MovingRooms || Player.isDead) { return; }
 
         rb.velocity = Vector3.right;
 

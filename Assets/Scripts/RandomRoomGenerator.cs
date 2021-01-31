@@ -36,6 +36,7 @@ public class RandomRoomGenerator : MonoBehaviour {
     public GameObject Walkman;
     public GameObject DoorPrefab;
     public GameObject BoundaryPrefab;
+    public GameObject SealedBoundaryPrefab;
     public GameObject BackgroundPrefab;
     List<DungeonRoom> rooms = new List<DungeonRoom>();
 
@@ -57,11 +58,12 @@ public class RandomRoomGenerator : MonoBehaviour {
         doorController.currentRoomPosition = new Vector3 ((currentGridX + gridXDelta) * gridToWorldSpaceSize, (currentGridY + gridYDelta) * gridToWorldSpaceSize);
 
         if (isNewRoom) {
-            if (RoomsCleared > RoomsClearedToWin) {
-                GenerateFinalRoom (currentGridX + gridXDelta, currentGridY + gridYDelta, gridXDelta, gridYDelta);
-            }
-            GenerateNewRoom (currentGridX + gridXDelta, currentGridY + gridYDelta, gridXDelta, gridYDelta);
             RoomsCleared++;
+            if (RoomsCleared >= RoomsClearedToWin) {
+                GenerateFinalRoom (currentGridX + gridXDelta, currentGridY + gridYDelta, gridXDelta, gridYDelta);
+            } else {
+                GenerateNewRoom (currentGridX + gridXDelta, currentGridY + gridYDelta, gridXDelta, gridYDelta);
+            }
         }
 
         // Position player
@@ -115,7 +117,7 @@ public class RandomRoomGenerator : MonoBehaviour {
         rooms.Add (new DungeonRoom ());
 
         // Boundary
-        Instantiate (BoundaryPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
+        Instantiate (SealedBoundaryPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
 
         // Background
         Instantiate (BackgroundPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);

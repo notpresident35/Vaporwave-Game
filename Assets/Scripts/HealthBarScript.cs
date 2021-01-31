@@ -32,7 +32,7 @@ public class HealthBarScript : MonoBehaviour {
 
     public void hurtMe(float damage) {
 
-        if (health <= 0 || RandomRoomGenerator.MovingRooms) { return; }
+        if (health <= 0 || RandomRoomGenerator.MovingRooms || Player.isDead) { return; }
 
         if (inv && !inv.invincible) {
             inv.TakeDamage ();

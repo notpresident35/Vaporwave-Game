@@ -20,7 +20,7 @@ public class DoorController : MonoBehaviour {
 
     private void Update () {
 
-        if (!RoomIsClear || RandomRoomGenerator.MovingRooms) { return; }
+        if (!RoomIsClear || RandomRoomGenerator.MovingRooms || Player.isDead) { return; }
 
         for (int i = 0; i < doors.Length; i++) {
             doors [i].GetComponent<Animator> ().SetBool ("IsOpen", (player.position - doors [i].position).magnitude < detectionRange);

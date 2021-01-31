@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, GenericKillableEntity {
 
     public static bool isDead = false;
 
+    [SerializeField] VideoPlayer DeathCutscenePlayer;
+    public RectTransform DeathCutscene;
     public float Speed;
     public float TurnSmoothing;
     public Transform Gun;
@@ -64,6 +68,14 @@ public class Player : MonoBehaviour, GenericKillableEntity {
     public void Die () {
         // TODO: Fancy death cutscene!
         isDead = true;
-        print ("Player died!");
+        DeathCutscene.anchoredPosition = Vector2.zero;
+        StartCoroutine (ReloadGameAfterCutscene ());
+    }
+
+    IEnumerator ReloadGameAfterCutscene () {
+        DeathCutscenePlayer.Play ();
+        yield return new WaitForSeconds ((float) DeathCutscenePlayer.clip.length + 0.2f);
+        isDead = false;
+        SceneManager.LoadScene (0);
     }
 }

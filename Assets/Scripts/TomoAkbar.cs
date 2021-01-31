@@ -23,7 +23,7 @@ public class TomoAkbar : MonoBehaviour,GenericKillableEntity
     // Update is called once per frame
     void Update()
     {
-        if (RandomRoomGenerator.MovingRooms) { return; }
+        if (RandomRoomGenerator.MovingRooms || Player.isDead) { return; }
 
         timer -= Time.deltaTime;
         if (timer <= 0) {

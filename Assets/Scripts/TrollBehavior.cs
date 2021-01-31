@@ -32,7 +32,7 @@ public class TrollBehavior : MonoBehaviour, GenericKillableEntity
     // Update is called once per frame
     void Update() {
 
-        if (!isActive || RandomRoomGenerator.MovingRooms) { return; }
+        if (!isActive || RandomRoomGenerator.MovingRooms || Player.isDead) { return; }
 
         float dist = Vector2.Distance(transform.position, Target.GetComponent<Transform>().position);
         if (dist > .001f) {
