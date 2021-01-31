@@ -15,10 +15,16 @@ public class RandomRoomGenerator : MonoBehaviour {
     int currentGridX;
     int currentGridY;
 
-    struct DungeonRoom {
+    public struct DungeonRoom {
         public GameObject instance;
         public int gridX;
         public int gridY;
+
+        public DungeonRoom (GameObject instance, int gridX, int gridY) {
+            this.instance = instance;
+            this.gridX = gridX;
+            this.gridY = gridY;
+        }
     }
 
     [System.Serializable]
@@ -46,7 +52,9 @@ public class RandomRoomGenerator : MonoBehaviour {
     }
 
     public void MoveToRoom (int gridXDelta, int gridYDelta) {
+
         MovingRooms = true;
+
         bool isNewRoom = true;
         foreach (DungeonRoom room in rooms) {
             if (room.gridX == currentGridX + gridXDelta && room.gridY == currentGridY + gridYDelta) {
@@ -62,7 +70,7 @@ public class RandomRoomGenerator : MonoBehaviour {
             if (RoomsCleared >= RoomsClearedToWin) {
                 GenerateFinalRoom (currentGridX + gridXDelta, currentGridY + gridYDelta, gridXDelta, gridYDelta);
             } else {
-                GenerateNewRoom (currentGridX + gridXDelta, currentGridY + gridYDelta, gridXDelta, gridYDelta);
+                GenerateNewRoom (gridXDelta, gridYDelta);
             }
         }
 
@@ -78,28 +86,25 @@ public class RandomRoomGenerator : MonoBehaviour {
         StartCoroutine (moveRooms ());
     }
 
-    public void GenerateNewRoom (int gridXPosition, int gridYPosition, int gridXDelta, int gridYDelta) {
+    public void GenerateNewRoom (int gridXDelta, int gridYDelta) {
 
         int newRoomChoice = Random.Range (0, DungeonRoomPrefabs.Length);
 
         // Dungeon (IE enemies, objects, traps)
-        DungeonRoom newRoom = new DungeonRoom ();
-        newRoom.gridX = gridXPosition;
-        newRoom.gridY = gridYPosition;
-        newRoom.instance = Instantiate (DungeonRoomPrefabs [newRoomChoice].prefab, doorController.currentRoomPosition, Quaternion.identity, transform);
-        rooms.Add (new DungeonRoom ());
+        DungeonRoom newRoom = new DungeonRoom (Instantiate (DungeonRoomPrefabs [newRoomChoice].prefab, doorController.currentRoomPosition, Quaternion.identity, transform), currentGridX + gridXDelta, currentGridY + gridYDelta);
+        rooms.Add (newRoom);
 
 
-        doorController.doors [0] = Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize - doorOffset, gridYPosition * gridToWorldSpaceSize), Quaternion.Euler (0, 0, 90), newRoom.instance.transform).transform;
-        doorController.doors [1] = Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize + doorOffset, gridYPosition * gridToWorldSpaceSize), Quaternion.Euler (0, 0, -90), newRoom.instance.transform).transform;
-        doorController.doors [2] = Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize + doorOffset), Quaternion.identity, newRoom.instance.transform).transform;
-        doorController.doors [3] = Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize - doorOffset), Quaternion.Euler (0, 0, 180), newRoom.instance.transform).transform;
+        Instantiate (DoorPrefab, new Vector3 (newRoom.gridX * gridToWorldSpaceSize - doorOffset, newRoom.gridY * gridToWorldSpaceSize), Quaternion.Euler (0, 0, 90), newRoom.instance.transform);
+        Instantiate (DoorPrefab, new Vector3 (newRoom.gridX * gridToWorldSpaceSize + doorOffset, newRoom.gridY * gridToWorldSpaceSize), Quaternion.Euler (0, 0, -90), newRoom.instance.transform);
+        Instantiate (DoorPrefab, new Vector3 (newRoom.gridX * gridToWorldSpaceSize, newRoom.gridY * gridToWorldSpaceSize + doorOffset), Quaternion.identity, newRoom.instance.transform);
+        Instantiate (DoorPrefab, new Vector3 (newRoom.gridX * gridToWorldSpaceSize, newRoom.gridY * gridToWorldSpaceSize - doorOffset), Quaternion.Euler (0, 0, 180), newRoom.instance.transform);
 
         // Boundary
-        Instantiate (BoundaryPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
+        Instantiate (BoundaryPrefab, new Vector3 (newRoom.gridX * gridToWorldSpaceSize, newRoom.gridY * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
 
         // Background
-        Instantiate (BackgroundPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
+        Instantiate (BackgroundPrefab, new Vector3 (newRoom.gridX * gridToWorldSpaceSize, newRoom.gridY * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
 
         // Logic setup
         DoorController.EnemiesRemainingInRoom = DungeonRoomPrefabs [newRoomChoice].enemyCount;
@@ -109,12 +114,8 @@ public class RandomRoomGenerator : MonoBehaviour {
     public void GenerateFinalRoom (int gridXPosition, int gridYPosition, int gridXDelta, int gridYDelta) {
 
         // Dungeon (IE enemies, objects, traps)
-        DungeonRoom newRoom = new DungeonRoom ();
-        newRoom.gridX = gridXPosition;
-        newRoom.gridY = gridYPosition;
-        Walkman.transform.position = doorController.currentRoomPosition;
-        newRoom.instance = Walkman;
-        rooms.Add (new DungeonRoom ());
+        DungeonRoom newRoom = new DungeonRoom (Walkman, currentGridX + gridXDelta, currentGridY + gridYDelta);
+        rooms.Add (newRoom);
 
         // Boundary
         Instantiate (SealedBoundaryPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
@@ -126,16 +127,13 @@ public class RandomRoomGenerator : MonoBehaviour {
     public void GenerateEmptyRoom (int gridXPosition, int gridYPosition, int gridXDelta, int gridYDelta) {
 
         // Dungeon (IE enemies, objects, traps)
-        DungeonRoom newRoom = new DungeonRoom ();
-        newRoom.gridX = gridXPosition;
-        newRoom.gridY = gridYPosition;
-        newRoom.instance = Instantiate (EmptyRoomPrefab, doorController.currentRoomPosition, Quaternion.identity, transform);
-        rooms.Add (new DungeonRoom ());
+        DungeonRoom newRoom = new DungeonRoom (Instantiate (EmptyRoomPrefab, doorController.currentRoomPosition, Quaternion.identity, transform), currentGridX + gridXDelta, currentGridY + gridYDelta);
+        rooms.Add (newRoom);
 
-        doorController.doors [0] = Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize + doorOffset, gridYPosition * gridToWorldSpaceSize), Quaternion.Euler (0, 0, -90), newRoom.instance.transform).transform;
-        doorController.doors [1] = Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize - doorOffset, gridYPosition * gridToWorldSpaceSize), Quaternion.Euler (0, 0, 90), newRoom.instance.transform).transform;
-        doorController.doors [2] = Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize + doorOffset), Quaternion.identity, newRoom.instance.transform).transform;
-        doorController.doors [3] = Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize - doorOffset), Quaternion.Euler (0, 0, 180), newRoom.instance.transform).transform;
+        Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize + doorOffset, gridYPosition * gridToWorldSpaceSize), Quaternion.Euler (0, 0, -90), newRoom.instance.transform);
+        Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize - doorOffset, gridYPosition * gridToWorldSpaceSize), Quaternion.Euler (0, 0, 90), newRoom.instance.transform);
+        Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize + doorOffset), Quaternion.identity, newRoom.instance.transform);
+        Instantiate (DoorPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize - doorOffset), Quaternion.Euler (0, 0, 180), newRoom.instance.transform);
 
         // Boundary
         Instantiate (BoundaryPrefab, new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize), Quaternion.identity, newRoom.instance.transform);
