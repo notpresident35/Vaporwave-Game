@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 6831646353938020534}
   - component: {fileID: 6831646353938020537}
   - component: {fileID: 6831646353938020540}
+  - component: {fileID: 1694280250530844443}
   m_Layer: 7
   m_Name: Oniontchi96x96
   m_TagString: Untagged
@@ -270,6 +271,21 @@ MonoBehaviour:
   numTomosSpawned: 3
   timeTilDeath: 5
   spawnForce: 5
+--- !u!114 &1694280250530844443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6831646353938020543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27e53025a87d685448d8566c9decfe10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useHearts: 0
+  hearts: []
+  health: 25
 --- !u!1 &6831646354144748912
 GameObject:
   m_ObjectHideFlags: 0
