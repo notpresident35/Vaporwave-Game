@@ -115,6 +115,7 @@ public class RandomRoomGenerator : MonoBehaviour {
 
         // Dungeon (IE enemies, objects, traps)
         DungeonRoom newRoom = new DungeonRoom (Walkman, currentGridX + gridXDelta, currentGridY + gridYDelta);
+        Walkman.transform.position = new Vector3 (gridXPosition * gridToWorldSpaceSize, gridYPosition * gridToWorldSpaceSize);
         rooms.Add (newRoom);
 
         // Boundary

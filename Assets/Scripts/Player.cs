@@ -79,6 +79,6 @@ public class Player : MonoBehaviour, GenericKillableEntity {
         DeathCutscenePlayer.GetComponent<AudioSource> ().Play ();
         yield return new WaitForSeconds ((float) DeathCutscenePlayer.clip.length - 1f);
         isDead = false;
-        SceneManager.LoadScene (0);
+        SceneManager.LoadScene ("Main");
     }
 }
