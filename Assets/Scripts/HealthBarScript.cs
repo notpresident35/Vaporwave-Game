@@ -7,20 +7,16 @@ public class HealthBarScript : MonoBehaviour {
     public bool useHearts;
     public GameObject [] hearts;
     public float health;
+    public GameObject killableEntity;
 
-    int totalHearts;
     GenericKillableEntity entity;
+    int totalHearts;
     PlayerInvincible inv;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (transform.parent) {
-            entity = transform.parent.GetComponent<GenericKillableEntity> ();
-            transform.parent = null;
-        } else {
-            entity = GetComponent<GenericKillableEntity> ();
-        }
+        entity = killableEntity.GetComponent<GenericKillableEntity> ();
 
         if (useHearts) {
             totalHearts = hearts.Length;
@@ -36,7 +32,7 @@ public class HealthBarScript : MonoBehaviour {
 
     public void hurtMe(float damage) {
 
-        if (health <= 0) { return; }
+        if (health <= 0 || RandomRoomGenerator.MovingRooms) { return; }
 
         if (inv && !inv.invincible) {
             inv.TakeDamage ();

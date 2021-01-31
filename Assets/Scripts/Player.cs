@@ -29,7 +29,7 @@ public class Player : MonoBehaviour, GenericKillableEntity {
 
     private void Update () {
 
-        if (isDead) { rb.velocity = Vector3.zero; return; }
+        if (isDead || RandomRoomGenerator.MovingRooms) { rb.velocity = Vector3.zero; return; }
 
         // Movement
         if (!trapped) {

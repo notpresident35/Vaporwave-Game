@@ -286,6 +286,7 @@ MonoBehaviour:
   useHearts: 0
   hearts: []
   health: 25
+  killableEntity: {fileID: 6831646353938020543}
 --- !u!1 &6831646354144748912
 GameObject:
   m_ObjectHideFlags: 0

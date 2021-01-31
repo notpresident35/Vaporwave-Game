@@ -7,41 +7,59 @@ public class DoorController : MonoBehaviour {
     public static bool RoomIsClear = false;
     public static int EnemiesRemainingInRoom = 1;
 
+    public Vector2 currentRoomPosition;
     public float detectionRange = 3;
     public float enterDoorDistance = 8;
     public Transform [] doors;
-
-    private Animator [] doorAnims = new Animator[4];
-    private Collider2D [] doorCols = new Collider2D [4];
+    public RandomRoomGenerator roomGenerator;
     private Transform player;
 
-    private void Awake () {
+    private void Start () {
         player = GameObject.FindWithTag ("Player").transform;
-        for (int i = 0; i < doors.Length; i++) {
-            doorAnims [i] = doors [i].GetComponent<Animator> ();
-            doorCols [i] = doors [i].GetComponent<Collider2D> ();
-        }
     }
 
     private void Update () {
 
-        if (!RoomIsClear) { return; }
+        if (!RoomIsClear || RandomRoomGenerator.MovingRooms) { return; }
 
         for (int i = 0; i < doors.Length; i++) {
-            doorAnims [i].SetBool ("IsOpen", (player.position - doors [i].position).magnitude < detectionRange);
-            doorCols [i].enabled = !((player.position - doors [i].position).magnitude < detectionRange);
+            doors [i].GetComponent<Animator> ().SetBool ("IsOpen", (player.position - doors [i].position).magnitude < detectionRange);
+            doors [i].GetComponent<Collider2D> ().enabled = !((player.position - doors [i].position).magnitude < detectionRange);
         }
 
-        if (player.position.x > enterDoorDistance) {
+        print (player.position.x - currentRoomPosition.x);
+        print (player.position.y - currentRoomPosition.y);
+
+        if (player.position.x - currentRoomPosition.x > enterDoorDistance) {
             // Entered right door
-        } else if (player.position.x < -enterDoorDistance) {
+            for (int i = 0; i < doors.Length; i++) {
+                doors [i].GetComponent<Animator> ().SetBool ("IsOpen", false);
+                doors [i].GetComponent<Collider2D> ().enabled = true;
+            }
+            roomGenerator.MoveToRoom (1, 0);
+        } else if (player.position.x - currentRoomPosition.x < -enterDoorDistance) {
             // Entered left door
+            for (int i = 0; i < doors.Length; i++) {
+                doors [i].GetComponent<Animator> ().SetBool ("IsOpen", false);
+                doors [i].GetComponent<Collider2D> ().enabled = true;
+            }
+            roomGenerator.MoveToRoom (-1, 0);
         }
         
-        if (player.position.y > enterDoorDistance) {
+        if (player.position.y - currentRoomPosition.y > enterDoorDistance) {
             // Entered top door
-        } else if (player.position.y < -enterDoorDistance) {
+            for (int i = 0; i < doors.Length; i++) {
+                doors [i].GetComponent<Animator> ().SetBool ("IsOpen", false);
+                doors [i].GetComponent<Collider2D> ().enabled = true;
+            }
+            roomGenerator.MoveToRoom (0, 1);
+        } else if (player.position.y - currentRoomPosition.y < -enterDoorDistance) {
             // Entered bottom door
+            for (int i = 0; i < doors.Length; i++) {
+                doors [i].GetComponent<Animator> ().SetBool ("IsOpen", false);
+                doors [i].GetComponent<Collider2D> ().enabled = true;
+            }
+            roomGenerator.MoveToRoom (0, -1);
         }
     }
 

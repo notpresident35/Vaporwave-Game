@@ -23,6 +23,8 @@ public class TomoAkbar : MonoBehaviour,GenericKillableEntity
     // Update is called once per frame
     void Update()
     {
+        if (RandomRoomGenerator.MovingRooms) { return; }
+
         timer -= Time.deltaTime;
         if (timer <= 0) {
             spawnNewTomos();

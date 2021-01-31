@@ -20,6 +20,8 @@ public class TomogachiMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (RandomRoomGenerator.MovingRooms) { return; }
+
         timer -= Time.deltaTime;
         if (timer <= 0) {
             rb.velocity = new Vector2(Random.Range(lowerBound, upperBound), Random.Range(lowerBound, upperBound));
